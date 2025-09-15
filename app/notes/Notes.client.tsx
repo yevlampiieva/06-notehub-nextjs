@@ -9,7 +9,6 @@ import SearchBox from "@/components/SearchBox/SearchBox";
 import Pagination from "@/components/Pagination/Pagination";
 import Modal from "@/components/Modal/Modal";
 import NoteForm from "@/components/NoteForm/NoteForm";
-
 import css from "./page.module.css";
 
 export default function NotesClient() {
@@ -18,7 +17,7 @@ export default function NotesClient() {
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { data, isLoading, isError, isSuccess } = useQuery({
+  const { data, isSuccess } = useQuery({
     queryKey: ["notes", { query: debouncedQuery, page: currentPage }],
     queryFn: () => fetchNotes(debouncedQuery, currentPage),
     refetchOnMount: false,
@@ -63,10 +62,6 @@ export default function NotesClient() {
           </Modal>
         )}
       </header>
-
-      {/* {isLoading && <Loader />} */}
-
-      {/* {isError && <ErrorMessage />} */}
 
       {data?.notes && <NoteList items={data.notes} />}
     </div>
