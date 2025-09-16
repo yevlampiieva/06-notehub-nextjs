@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Note, NoteId } from "@/types/note";
+import { Note } from "@/types/note";
 
 interface fetchNotesResponse {
   notes: Note[];
@@ -38,15 +38,12 @@ export const createNote = async (newNote: newNote): Promise<Note> => {
   return response.data;
 };
 
-export const deleteNote = async (noteId: NoteId): Promise<Note> => {
-  const response = await axios.delete<Note>(
-    `https://notehub-public.goit.study/api/notes/${noteId}`,
-    {
-      headers: {
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_NOTEHUB_TOKEN}`,
-      },
-    }
-  );
+export const deleteNote = async (id: string): Promise<Note> => {
+  const response = await axios.delete<Note>(`https://notehub-public.goit.study/api/notes/${id}`, {
+    headers: {
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_NOTEHUB_TOKEN}`,
+    },
+  });
   return response.data;
 };
 
